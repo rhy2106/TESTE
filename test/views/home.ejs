@@ -1,0 +1,100 @@
+<!DOCTYPE.html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link href="estilos.css" rel="stylesheet">
+        <title>Lista de Compras</title>
+		<script src="https://kit.fontawesome.com/ee8ca3ade0.js" crossorigin="anonymous"></script>
+		<script src="script.js" type="text/javascript" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+<!-- Cabeçalho -->
+        <ul class="header">
+			<a href="/"><li class="botao">Home</li></a>
+            <a href="/comida"><li class="botao">Comida</li></a>
+            <a href="/objetos"><li class="botao">Objetos</li></a>
+            <a href="/jogos"><li class="botao">Jogos</li></a>
+        </ul>
+<!-- Coluna da Esquerda -->
+        <div class="corpo">
+            <div class="coluna1">
+                <ul class="navegador">
+					<form action="/add" method="post">
+						<li class="titulo"><strong>Adicionar a Lista</strong></li>
+						<li class="titulo">
+							Nome Produto:<br>
+							<input type="text" name="p">
+						</li>
+						<li class="titulo">
+							Quantidade Desejada:<br>
+							<input type="text" name="n"><br>
+						</li>
+						<li class="titulo">
+							Quantidade Atual:<br>
+							<input type="text" name="a"><br>
+						</li>
+						<li class="titulo">
+							<input type="submit" value="Criar post">
+						</li>
+					</form>
+                </ul>
+            </div>
+    <!-- Corpo do Site -->
+            <div class="coluna2">
+                <div class="titulo">
+				<p><strong>Lista de Compras</strong></p>
+				<table>
+                    <% for(let i = 0; i < produtos.length; i++) { %>
+						<% if(produtos[i].p == '') continue; %>
+						<% if( produtos[i].a < produtos[i].n){ %>
+							<tr class="falta" id="<%= produtos[i].p %>_c">
+						<% } else{ %>
+							<tr class="ok" id="<%= produtos[i].p %>_c">
+						<% } %>
+							<td class="produto1 <%= produtos[i].p %>" id="<%= produtos[i].p %>"> <%= produtos[i].p %> </td>
+							<td class="produto <%= produtos[i].p %>" id="<%= produtos[i].p %>_a"> <%= produtos[i].a %> </td>
+							<td class="produto <%= produtos[i].p %> seta" id="<%= produtos[i].p %>_seta1"> 
+								<button type="submit" onclick="mod( '<%= produtos[i].p %>', 1)">
+									<i class="fa-solid fa-caret-up"></i>
+								</button>
+							</td>
+							<td class="produto <%= produtos[i].p %> seta" id="<%= produtos[i].p %>_seta2">
+								<button type="submit" onclick="mod( '<%= produtos[i].p %>', -1 )">
+									<i class="fa-solid fa-caret-down"></i>
+								</button>
+							</td>
+
+							<td class="produto <%= produtos[i].p %>" id="<%= produtos[i].p %>_n"> <%= produtos[i].n %> </td>
+							<td class="produto <%= produtos[i].p %> seta" id="<%= produtos[i].p %>_seta3"> 
+								<button type="submit" onclick="mod( '<%= produtos[i].p %>', 2)">
+									<i class="fa-solid fa-caret-up"></i>
+								</button>
+							</td>
+							<td class="produto <%= produtos[i].p %> seta" id="<%= produtos[i].p %>_seta4">
+								<button type="submit" onclick="mod( '<%= produtos[i].p %>', -2)">
+									<i class="fa-solid fa-caret-down"></i>
+								</button>
+							</td>
+						</tr>
+                    <% } %>
+				</table>
+                </div>
+            </div>
+			<div class="coluna3">
+				<ul class="atual">
+					<form action="/del" method="post">
+						<li class="titulo"><strong>Remover da lista</strong></li>
+						<li class="titulo">
+							Nome Produto: <br>
+							<input type="text" name="p">
+						</li>
+						<li class="titulo">
+						<input type="submit" value="Delete">
+						</li>
+					</form>
+				</ul>
+			</div>
+        </div>
+    </body>
+</html>
